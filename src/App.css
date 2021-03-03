@@ -1,38 +1,78 @@
-.App {
-  text-align: center;
+/* CSS Variables*/
+:root {
+
+  /* Primary Colors */
+  --color-primary: #ffffff;
+  --color-secondary: #1faebc;
+  --color-additional: #f74242;
+
+  /*Card Colors */
+  --card-selected: #1faebc;
+  --card-selected-border: #72dfea;
+  --card-selected-tri: #f74242;
+  --card-unselected-border: #cccccc;
+  --card-unselected-tri: #b7b7b7;
+
+  /* Text Colors*/
+  --primary-text: #0b0b0b;
+  --secondary-text: #53c1cb;
+  --light-text: #3a5153;
+
+  /*Background Colors*/
+  --primary-background: #FFFFFF;
+
+  /* Form Field Active*/
+  --formfield-active: #F7F7F9;
+
+  /*Error and Alert Color*/
+  --error-alert: #ef3340;
+
+  /* Others */
+  --button-background: #2274a5;
+
+  /*Fonts*/
+  --primary-font: "Open Sans", Sans-serif;
+
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.icon{
+  border: 3px solid var(--card-unselected-tri);
+  border-radius: 100%;
+  color: #fff;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.selected-icon{
+  color: var(--card-selected);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.card{
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid var(--card-unselected-border);
+  border-radius: .25rem;
 }
 
-.App-link {
-  color: #61dafb;
+.card-selected{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid var(--card-selected-border);
+  border-radius: .25rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.card-icon{
+  color: var(--card-unselected-tri);
+}
+
+.card-icon-selected{
+  color: var(--card-selected-tri);
 }
