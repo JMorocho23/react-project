@@ -1,64 +1,68 @@
 import React, { useState } from "react";
-import DatePicker from "react-datepicker";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircle } from "@fortawesome/free-solid-svg-icons";
-import { faClone } from "@fortawesome/free-solid-svg-icons";
-import "react-datepicker/dist/react-datepicker.css";
+import Card from "./Card";
+import { Draggable } from "react-beautiful-dnd";
 
-const Schedule = () => {
-  const [date, handleDateChange] = useState(new Date());
-
-  const renderDate = () => {
-    return (
-      <div className="col-5 text-left align-self-center">
-        <DatePicker
-          selected={date}
-          onChange={handleDateChange}
-          showTimeSelect
-          dateFormat="Pp"
-        />
-      </div>
-    );
-  };
+const Schedule = ({ lists, name, isDnD }) => {
+  const [selectAll, setSelectAll] = useState(false);
+  const [btnText, setBtnText] = useState(`Select all in ${name}`);
 
   return (
-    <div className="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div className="col-md-9 col-lg-10 col-sm-12">
       <div className="d-flex align-items-center pt-3 pb-2 mb-3 border-bottom">
         <div className="col">
-          <h2>Ideation</h2>
+          <h2 className="section-title">{name}</h2>
         </div>
         <div className="col">
-          <a href="#">Select all in ideation</a>
+          <button
+            onClick={() => {
+              if (selectAll) {
+                setSelectAll(false);
+                setBtnText(`Select all in ${name}`);
+              } else {
+                setSelectAll(true);
+                setBtnText(`Unselect all in ${name}`);
+              }
+            }}
+            className="btn-select"
+          >
+            {btnText}
+          </button>
         </div>
         <div className="col">
-          <p>Due Date (Optional)</p>
+          <p className="section-date">Due Date (Optional)</p>
         </div>
       </div>
-      <div className="row">
-        <div className="col-2 text-center align-self-center">
-          <FontAwesomeIcon className="mr-3 icon" size="2x" icon={faCircle} />
-        </div>
-        <div className="col-5">
-          <div class="card">
-            <div class="card-body">
-              <div className="row">
-                <div className="col">
-                  <h3 className="text-muted">Problem</h3>
-                  <a href="#">View Builder</a>
-                </div>
-                <div className="col text-center align-self-center">
-                  <FontAwesomeIcon
-                    className="mr-3 card-icon"
-                    size="2x"
-                    icon={faClone}
+      {lists.map((item, index) => {
+        if (isDnD) {
+          return (
+            <Draggable key={item.id} draggableId={item.id} index={index}>
+              {(provided) => (
+                <div
+                  ref={provided.innerRef}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                >
+                  <Card
+                    key={item.id}
+                    name={item.name}
+                    selectAll={selectAll}
+                    isDnD={true}
                   />
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {renderDate()}
-      </div>
+              )}
+            </Draggable>
+          );
+        } else {
+          return (
+            <Card
+              key={item.id}
+              name={item.name}
+              selectAll={selectAll}
+              isDnD={false}
+            />
+          );
+        }
+      })}
     </div>
   );
 };
